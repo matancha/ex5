@@ -17,19 +17,31 @@ public class Manager {
 		ArrayList<Subsection> subsections = Parser.parser(commandFile);
 		File[] filesList = dir.listFiles();
 
-		for (Subsection subsection: subsections) {
-			ArrayList<File> passedFiles = new ArrayList<File>();
-			for (File file: filesList) {
+		for (Subsection subsection : subsections) {
+			File[] passedFiles = new File[filesList.length];
+			/*ArrayList<File> passedFiles = new ArrayList<File>();*/
+			int i = 0;
+			for (File file : filesList) {
 				boolean filterPassed = true;
-				for (Filter filter: subsection.getFilterList()) {
-					if (! filter.isPassFilter(file)){
+				for (Filter filter : subsection.getFilterList()) {
+					if (!filter.isPassFilter(file)) {
 						filterPassed = false;
 						break;
 					}
 				}
 				if (filterPassed) {
-					passedFiles.add(file);
+					passedFiles[i] = file;
+					i++;
 				}
+			}
+			File[] finallyPassedFiles = new File[i];
+			for (int j = 0; j < i; j++) {
+				finallyPassedFiles[j] = passedFiles[j];
+			}
+
+			File[] filesInOrder = subsection.getOrder().getFilesInOrder(finallyPassedFiles);
+			for (File file : filesInOrder) {
+				System.out.println(file.getName());
 			}
 		}
 	}

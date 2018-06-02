@@ -7,22 +7,26 @@ import fileParser.orders.*;
 import java.util.regex.Pattern;
 
 public class Parser {
-	public static ArrayList<Subsection> parser(File commandsFile) throws TypeOneException {
+	public static ArrayList<Subsection> parser(File commandsFile) {
 		ArrayList<Subsection> subsectionList = new ArrayList<Subsection>();
 		try {
-			Scanner sc = new Scanner(commandsFile);
-			while (sc.hasNextLine()) {
-				String line=sc.nextLine();
+			LineNumberReader fileContents = new LineNumberReader(new FileReader(commandsFile));
+			String currentLine = fileContents.readLine();
+			while (currentLine != null) {
 				ArrayList<Filter> filters = new ArrayList<Filter>();
-				while (! line.equals("ORDER")){
-					String filterLine = sc.nextLine();
-					Filter filter = FilterFactory.createFilter(filterLine.split(Pattern.quote("#")));
-					filters.add(filter);
-					line=sc.nextLine();
+				try {
+					while (! currentLine.equals("ORDER")){
+						currentLine = fileContents.readLine();
+						Filter filter = FilterFactory.createFilter(currentLine.split(Pattern.quote("#")));
+						filters.add(filter);
+						currentLine=fileContents.readLine();
+					}
+					currentLine=fileContents.readLine();
+					Order order = OrderFactory.createOrder(currentLine.split(Pattern.quote("#")));
+					subsectionList.add(new Subsection(filters, order));
+				} catch (TypeOneException e) {
+					System.out.println(fileContents.getLineNumber());
 				}
-				line=sc.nextLine();
-				Order order = OrderFactory.createOrder(line.split(Pattern.quote("#")));
-				subsectionList.add(new Subsection(filters, order));
 			}
 		} catch (IOException e) {
 			return null;

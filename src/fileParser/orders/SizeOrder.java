@@ -16,5 +16,6 @@ public class SizeOrder implements Order {
 				return Long.compare(o1.length(), o2.length());
 			}
 		});
+		return files;
 	}
 }

@@ -1,5 +1,4 @@
 package fileParser.orders;
-import com.sun.glass.ui.Size;
 import fileParser.TypeOneException;
 
 public class OrderFactory {
@@ -9,6 +8,9 @@ public class OrderFactory {
 		switch (filterString[0]) {
 			case "size":
 				order = new SizeOrder();
+				break;
+			case "type":
+				order = new TypeOrder();
 				break;
 			default:
 		}
