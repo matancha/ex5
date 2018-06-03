@@ -13,6 +13,7 @@ public class OrderFactory {
 				order = new TypeOrder();
 				break;
 			default:
+				order = null;
 		}
 
 		return order;

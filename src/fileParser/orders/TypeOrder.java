@@ -1,5 +1,6 @@
 package fileParser.orders;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class TypeOrder implements Order {
@@ -16,6 +17,7 @@ public class TypeOrder implements Order {
 		files[index+1]=fileForSwap;
 	}
 
+
 	@Override
 	public File[] getFilesInOrder(File[] files) {
 		for (int i=0;i<files.length;i++){
@@ -26,6 +28,13 @@ public class TypeOrder implements Order {
 					swap(files,j);
 				}
 			}
+		}
+		for (int i=0;i<files.length;i++){
+			int j=i;
+			while (getType(files[i].getName()).equals(getType(files[i+1].getName()))) {
+				j++;
+			}
+			File[] absOrder = new AbsOrder().getFilesInOrder(new File[] {files[i], files[j]});
 		}
 		return files;
 	}

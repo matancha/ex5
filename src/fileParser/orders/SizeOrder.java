@@ -1,8 +1,6 @@
 package fileParser.orders;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class SizeOrder implements Order {
 	SizeOrder() {
@@ -10,12 +8,7 @@ public class SizeOrder implements Order {
 
 	@Override
 	public File[] getFilesInOrder(File[] files) {
-		Arrays.sort(files, new Comparator<File>() {
-			@Override
-			public int compare(File o1, File o2) {
-				return Long.compare(o1.length(), o2.length());
-			}
-		});
+		Arrays.sort(files, (o1, o2) -> Long.compare(o1.length(), o2.length()));
 		return files;
 	}
 }
