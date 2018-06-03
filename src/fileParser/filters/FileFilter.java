@@ -1,10 +1,10 @@
 package fileParser.filters;
 import java.io.File;
 
-public class FileFilter extends NameFilter {
+public class FileFilter extends FileNameFilter {
 	private String value;
 
-	public FileFilter(File file, String value) {
+	public FileFilter(String value) {
 		this.value = value;
 	}
 

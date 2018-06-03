@@ -1,15 +1,12 @@
 package fileParser.filters;
 import java.io.File;
 
-public class WritableFilter extends Filter {
-	private File file;
-
-	public WritableFilter(File file) {
-		this.file = file;
-	}
+public class WritableFilter extends FileFeaturesFilter{
+	private boolean answer;
+	public WritableFilter(boolean answer) {this.answer=answer;}
 
 	@Override
-	public boolean isPassFilter() {
-		return file.canWrite();
+	public boolean isPassFilter(File file) {
+		return file.canWrite()==answer;
 	}
 }
