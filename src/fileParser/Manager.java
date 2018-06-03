@@ -14,13 +14,12 @@ public class Manager {
 		File dir = new File(dirPath);
 		File commandFile = new File(commandsPath);
 
-		ArrayList<Subsection> subsections = Parser.parser(commandFile);
+		ArrayList<Subsection> subsections = Parser.parse(commandFile);
 		File[] filesList = dir.listFiles();
 
 		for (Subsection subsection : subsections) {
-			File[] passedFiles = new File[filesList.length];
-			/*ArrayList<File> passedFiles = new ArrayList<File>();*/
-			int i = 0;
+			ArrayList<File> approvedFiles = new ArrayList<File>();
+
 			for (File file : filesList) {
 				boolean filterPassed = true;
 				for (Filter filter : subsection.getFilterList()) {
@@ -30,18 +29,13 @@ public class Manager {
 					}
 				}
 				if (filterPassed) {
-					passedFiles[i] = file;
-					i++;
+					approvedFiles.add(file);
 				}
 			}
-			File[] finallyPassedFiles = new File[i];
-			for (int j = 0; j < i; j++) {
-				finallyPassedFiles[j] = passedFiles[j];
-			}
 
-			File[] filesInOrder = subsection.getOrder().getFilesInOrder(finallyPassedFiles);
-			for (File file : filesInOrder) {
-				System.out.println(file.getName());
+			File[] filesInOrder = subsection.getOrder().getFilesInOrder((File[]) approvedFiles.toArray());
+			for (File toPrintFile : filesInOrder) {
+				System.out.println(toPrintFile.getName());
 			}
 		}
 	}
