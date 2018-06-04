@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 	public static ArrayList<Subsection> parse(File commandsFile) {
-		ArrayList<Subsection> subsectionList = new ArrayList<Subsection>();
+		ArrayList<Subsection> subsectionList = new ArrayList<>();
 		try {
 			LineNumberReader fileContents = new LineNumberReader(new FileReader(commandsFile));
 			String currentLine = fileContents.readLine();

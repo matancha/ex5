@@ -5,6 +5,7 @@ import filesprocessing.filters.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DirectoryProcessor {
 	public static void main(String[] args) {
@@ -18,7 +19,7 @@ public class DirectoryProcessor {
 		File[] filesList = dir.listFiles();
 
 		for (Subsection subsection : subsections) {
-			ArrayList<File> approvedFiles = new ArrayList<File>();
+			ArrayList<File> approvedFiles = new ArrayList<>();
 
 			for (File file : filesList) {
 				boolean filterPassed = true;
@@ -34,7 +35,7 @@ public class DirectoryProcessor {
 			}
 
 			File[] approvedFilesArray = new File[approvedFiles.size()];
-			File[] filesInOrder = subsection.getOrder().getFilesInOrder(approvedFiles.toArray(approvedFilesArray));
+			List<File> filesInOrder = subsection.getOrder().getFilesInOrder(approvedFiles);
 			for (File toPrintFile : filesInOrder) {
 				System.out.println(toPrintFile.getName());
 			}

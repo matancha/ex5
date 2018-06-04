@@ -1,14 +1,13 @@
 package filesprocessing.orders;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class AbsOrder implements Order {
-	AbsOrder() {
-	}
-
 	@Override
-	public File[] getFilesInOrder(File[] files) {
-		Arrays.sort(files, (o1, o2) -> o1.getAbsolutePath().compareTo(o2.getAbsolutePath()));
+	public List<File> getFilesInOrder(List<File> files) {
+		files.sort(Comparator.comparing(File::getAbsolutePath));
 		return files;
 	}
 }
