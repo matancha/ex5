@@ -7,8 +7,8 @@ public class SizeOrder implements Order {
 	}
 
 	@Override
-	public File[] getFilesInOrder(File[] files) {
-		Arrays.sort(files, (o1, o2) -> Long.compare(o1.length(), o2.length()));
+	public List<File> getFilesInOrder(List<File> files) {
+		files.sort(Comparator.comparingLong(File::length));
 		return files;
 	}
 }
