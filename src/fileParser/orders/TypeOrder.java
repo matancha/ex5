@@ -1,6 +1,7 @@
 package fileParser.orders;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class TypeOrder implements Order {
@@ -31,10 +32,14 @@ public class TypeOrder implements Order {
 		}
 		for (int i=0;i<files.length;i++){
 			int j=i;
-			while (getType(files[i].getName()).equals(getType(files[i+1].getName()))) {
+			while (getType(files[j].getName()).equals(getType(files[j+1].getName()))) {
 				j++;
 			}
-			File[] absOrder = new AbsOrder().getFilesInOrder(new File[] {files[i], files[j]});
+			File[] absOrder = new AbsOrder().getFilesInOrder(Arrays.copyOfRange(files, i, j));
+			for (int c=i;c<j;c++){
+				files[c] = absOrder[c-i];
+			}
+			i=j;
 		}
 		return files;
 	}
