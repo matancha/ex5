@@ -1,4 +1,5 @@
 package filesprocessing.filters;
+import filesprocessing.BadParametersException;
 import filesprocessing.TypeOneException;
 
 public class FilterFactory {
@@ -9,7 +10,7 @@ public class FilterFactory {
 				double maxSize = Double.parseDouble(filterString[1]);
 				if (maxSize < 0) {
 
-					throw new NegativeSizeException();
+					throw new BadParametersException();
 				}
 				filter = new GreaterThanFilter(maxSize);
 				break;
@@ -18,7 +19,7 @@ public class FilterFactory {
 				double minSize=Double.parseDouble(filterString[1]);
 				if (minSize < 0) {
 
-					throw new NegativeSizeException();
+					throw new BadParametersException();
 				}
 				filter = new SmallerThanFilter(minSize);
 				break;
@@ -26,9 +27,9 @@ public class FilterFactory {
 				minSize=Double.parseDouble(filterString[1]);
 				maxSize=Double.parseDouble(filterString[2]);
 				if (minSize>maxSize){
-					throw new WrongOrderOfParameters();
+					throw new BadParametersException();
 				}else if(minSize<0||maxSize<0){
-					throw new NegativeSizeException();
+					throw new BadParametersException();
 				}
 				filter=new BetweenFilter(minSize,maxSize);
 				break;
@@ -64,7 +65,7 @@ public class FilterFactory {
 				filter=new AllFilter();
 				break;
 			default:
-				throw new BadFilterNameException();
+				throw new BadParametersException();
 		}
 		if (filterString[filterString.length-1].equals("NOT")){
 			filter=new NegFilter(filter);
@@ -73,13 +74,13 @@ public class FilterFactory {
 
 		return filter;
 	}
-	private static boolean turnToBoolean(String answer)throws BooleanParameterException{
+	private static boolean turnToBoolean(String answer)throws BadParametersException{
 		if(answer.equals("YES")){
 			return true;
 		}else if(answer.equals("NO")){
 			return false;
 		}
-		throw new BooleanParameterException();
+		throw new BadParametersException();
 	}
 
 }
