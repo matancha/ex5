@@ -19,7 +19,9 @@ public class OrderFactory {
 				throw new BadParametersException();
 		}
 
-
+		if (filterString[filterString.length-1].equals("REVERSE")){
+			order=new ReverseOrder(order);
+		}
 
 		return order;
 	}
