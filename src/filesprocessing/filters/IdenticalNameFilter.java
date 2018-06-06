@@ -1,10 +1,10 @@
 package filesprocessing.filters;
 import java.io.File;
 
-public class FileFilter extends FileNameFilter {
+public class IdenticalNameFilter extends FileNameFilter {
 	private String value;
 
-	public FileFilter(String value) {
+	public IdenticalNameFilter(String value) {
 		this.value = value;
 	}
 

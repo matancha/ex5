@@ -3,7 +3,7 @@ package filesprocessing;
 
 import filesprocessing.filters.*;
 
-import java.io.File;
+import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,13 @@ public class DirectoryProcessor {
 
 			File dir = new File(dirPath);
 			File commandFile = new File(commandsPath);
-			File[] filesList = dir.listFiles();
+			File[] filesList = dir.listFiles(new FileFilter() {
+				@Override
+				public boolean accept(File file) {
+					return file.isFile();
+				}
+			});
+
 			if (isComandFileEmpty(commandFile)){
 				return;
 			}
@@ -41,6 +47,9 @@ public class DirectoryProcessor {
 				}
 
 				List<File> filesInOrder = subsection.getOrder().getFilesInOrder(approvedFiles);
+				for (String warning: subsection.getWarnings()) {
+					System.err.println(warning);
+				}
 				for (File toPrintFile : filesInOrder) {
 					System.out.println(toPrintFile.getName());
 				}
@@ -56,6 +65,4 @@ public class DirectoryProcessor {
 		}
 	}
 	private static boolean isComandFileEmpty(File comandsPath){return  comandsPath.length()==0;}
-
-	private static boolean isFilesListEmpty(File[] files){return files.length==0;}
 }

@@ -44,7 +44,7 @@ public class FilterFactory {
 					throw new BadParametersException();
 				};
 				String stringForChecking=(filterString[1]);
-				filter=new FileFilter(stringForChecking);
+				filter=new IdenticalNameFilter(stringForChecking);
 				break;
 			case "contains":
 				if (! checkNumOfArguments(filterString, 1)){

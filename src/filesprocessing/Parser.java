@@ -11,10 +11,11 @@ public class Parser {
 		ArrayList<Subsection> subsectionList = new ArrayList<>();
 		LineNumberReader fileContents = new LineNumberReader(new FileReader(commandsFile));
 		String currentLine = fileContents.readLine();
-		if (!currentLine.equals("FILTER")) {
-			throw new BadSubsectionNameException();
-		}
 		while (currentLine != null) {
+			if (!currentLine.equals("FILTER")) {
+				throw new BadSubsectionNameException();
+			}
+			ArrayList<String> subsectionWarnings = new ArrayList<>();
 			ArrayList<Filter> filters = new ArrayList<Filter>();
 			while (!currentLine.equals("ORDER")) {
 				currentLine = fileContents.readLine();
@@ -22,7 +23,7 @@ public class Parser {
 				try {
 					filter = FilterFactory.createFilter(currentLine.split(Pattern.quote("#")));
 				} catch (TypeOneException | ClassCastException e) {
-					System.err.println("Warning in line " + fileContents.getLineNumber());
+					subsectionWarnings.add("Warning in line " + fileContents.getLineNumber());
 					filter = FilterFactory.getDefaultFilter();
 				}
 				filters.add(filter);
@@ -44,11 +45,11 @@ public class Parser {
 					lineForOrder = currentLine.split(Pattern.quote("#"));
 					order = OrderFactory.createOrder(lineForOrder);
 				} catch (TypeOneException e) {
-					System.err.println("Warning in line " + fileContents.getLineNumber());
+					subsectionWarnings.add("Warning in line " + fileContents.getLineNumber());
 					order = OrderFactory.getDefaultOrder();
 				}
 			}
-			subsectionList.add(new Subsection(filters, order));
+			subsectionList.add(new Subsection(filters, order, subsectionWarnings));
 			if (currentLine != null && !currentLine.equals("FILTER")) {
 				currentLine = fileContents.readLine();
 			}
