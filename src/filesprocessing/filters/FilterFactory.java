@@ -89,7 +89,7 @@ public class FilterFactory {
 				filter=new HiddenFilter(answer);
 				break;
 			case "all":
-				if (! checkNumOfArguments(filterString, 1)){
+				if (! checkNumOfArguments(filterString, 0)){
 					throw new BadParametersException();
 				};
 				filter=new AllFilter();

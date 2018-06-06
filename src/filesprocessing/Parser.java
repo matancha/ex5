@@ -46,7 +46,6 @@ public class Parser {
 				} catch (TypeOneException e) {
 					System.err.println("Warning in line " + fileContents.getLineNumber());
 					order = OrderFactory.getDefaultOrder();
-					/*currentLine=fileContents.readLine();*/
 				}
 			}
 			subsectionList.add(new Subsection(filters, order));

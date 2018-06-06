@@ -11,18 +11,18 @@ import java.util.List;
 public class DirectoryProcessor {
 	public static void main(String[] args) {
 		try {
-			if (args.length != 2) {
-				throw new ParametersNumberException();
-			}
+			checkNumberOfArgs(args);
 
 			String dirPath = args[0];
 			String commandsPath = args[1];
 
 			File dir = new File(dirPath);
 			File commandFile = new File(commandsPath);
-
-			ArrayList<Subsection> subsections = Parser.parse(commandFile);
 			File[] filesList = dir.listFiles();
+			if (isComandFileEmpty(commandFile)){
+				return;
+			}
+			ArrayList<Subsection> subsections = Parser.parse(commandFile);
 
 			for (Subsection subsection : subsections) {
 				ArrayList<File> approvedFiles = new ArrayList<>();
@@ -47,10 +47,15 @@ public class DirectoryProcessor {
 			}
 		} catch (TypeTwoException e) {
 			System.err.println("ERROR: " + e.getMsg());
-			return;
 		} catch (IOException e) {
 			System.err.println("ERROR: IO problem");
-			return;
+		}
+	}private static void checkNumberOfArgs(String[] args)throws ParametersNumberException{
+		if (args.length != 2) {
+			throw new ParametersNumberException();
 		}
 	}
+	private static boolean isComandFileEmpty(File comandsPath){return  comandsPath.length()==0;}
+
+	private static boolean isFilesListEmpty(File[] files){return files.length==0;}
 }
