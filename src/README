@@ -4,50 +4,50 @@ molodoy
 ==========================
 =    File Description    =
 ==========================
-Filter.java-This class implements abstract filter
 
+DirectoryProcessor.java - Main class responsible for general flow of the program
+Parser.java - Class responsible for understanding and extracting information from the
+  supplied commands file
+
+Filter.java-This class is an interface for all filters
 FilterFactory.java-class that implements filter factory for creating filter of files.
 
-BetweenFilter.java-filter that implements filter that verify that size of file is between to inserted numbers.
+Filters:
+  BetweenFilter.java-filter that implements filter that verify that size of file is between to inserted numbers.
+  ContainsFilter.java-class that implements filter that check if name of file is contains an inserted string.
+  ExecutableFilter.java-class that implements filter that check that inserted file is executable
+    and verify it with string that was inserted.
+  FileFeaturesFilter.java-class that implements filter that check if some file is "...ble" according to feature.
+  FileNameFilter.java-class that implements filter that verify some properties of name of file that is checked.
+  GreaterThanFilter-class that implements filter that verify that size of checked file is less than upper bound.
+  HiddenFilter.java-class that  implements filter that check that inserted file is hidden
+    and verify it with string that was inserted.
+  IdenticalNameFilter.java-class that implements filter that check
+    if name of file is the same as inserted file's name.
+  NegFilter.java-class that  implements decorator for inserted filter.
+    It will return opposite result of inserted filter.
+    In other words it will return false when original filter will return true and wise versa.
+  PrefixFilter.java-class that implements filter that verify if a filter starts with inserted prefix.
+  SizeFilter.java-class that implements abstract filter that are connected in some way to size bounds.
+  AllFilter.java-class that implements filter that passes each file.
+  SmallerThanFilter.java-class that implements filter that verify
+    that size of checked file is greater than lower bound.
+  SuffixFilter.java-class that implements filter that verify if a filter ends with inserted suffix.
+  WritableFilter.java-class that implements filter that check that inserted file is writable
+    and verify it with answer that was inserted.
 
-ContainsFilter.java-class that implements filter that check if name of file is contains an inserted string.
+Order.java-This class is an interface for all orders
+OrderFactory.java-class that implements order factory for creating order objects.
 
-ExecutableFilter.java-class that implements filter that check that inserted file is executable
-and verify it with string that was inserted.
-
-FileFeaturesFilter.java-class that implements filter that check if some file is "...ble" according to feature.
-
-FileNameFilter.java-class that implements filter that verify some properties of name of file that is checked.
-
-GreaterThanFilter-class that implements filter that verify that size of checked file is less than upper bound.
-
-HiddenFilter.java-class that  implements filter that check that inserted file is hidden
-and verify it with string that was inserted.
-
-IdenticalNameFilter.java-class that implements filter that check
-if name of file is the same as inserted file's name.
-
-NegFilter.java-class that  implements decorator for inserted filter.
- It will return opposite result of inserted filter.
-In other words it will return false when original filter will return true and wise versa.
-
-PrefixFilter.java-class that implements filter that verify if a filter starts with inserted prefix.
-
-SizeFilter.java-class that implements abstract filter that are connected in some way to size bounds.
-
-AllFilter.java-class that implements filter that passes each file.
-
-SmallerThanFilter.java-class that implements filter that verify
-that size of checked file is greater than lower bound.
-
-SuffixFilter.java-class that implements filter that verify if a filter ends with inserted suffix.
-
-WritableFilter.java-class that implements filter that check that inserted file is writable
-and verify it with answer that was inserted.
+Orders:
+  AbsOrder.java - Sorts file by absolute path
+  SizeOrder.java - Sorts files by size
+  TypeOrder.java - Sorts files by their type
+  ReverseOrder.java - Sorts files in reverse, compared to a specific order
 
 TypeOneException.java-class  that implements exceptions that thrown by order and filter.
 When this exception is thrown function is continue to work,but there
-is a massage where warning was founded.
+is a message where warning was founded.
 
 BadParametersException.java-exception that thrown in case that parameters of order or filter are not appropriate.
 
@@ -58,7 +58,7 @@ Error will be printed according to message of the Exception.
 ParametersNumberException.java-class that implements exception that thrown in case of wrong number of parameters.
 For example if there were just 1 or 0 parameters inserted,or on the contrary,3 or more.
 
-ComandsFileException.java-class that implements exception that thrown in case
+CommandsFileException.java-class that implements exception that thrown in case
 that format of commands file is not appropriate.
 
 
@@ -75,14 +75,27 @@ Filter factory create filter according to inserted parameters and throw error if
 In this case default filter (all filter) is created.
 Order factory also creates order according to inserted parameters and throw exception in case of invalid parameters.
 In this case will bew created default order (abs order).
+
 ================================
 =    Implementation details    =
 ================================
+We decided to define Filter and Order as interfaces, as they do not have an implementation of their own.
+ But on the other hand, we did want all of the orders and filters in our program, to derive common features
+ from those interfaces and so as to force them to implement the necessary functions.
 
+We decided to use the factory design pattern for creating orders and filters, because of the Single Choice Principle
+ - the exhaustive list of each and every option is in one place only in the code, so that future modifications
+ will be easy. Moreover, we did not want that anyone other than the Factory itself would have any information about
+ the different objects so as not to create dependencies which later will be hard to alter.
 
 ==============================
 =    Answers to questions    =
 ==============================
+
+We sorted the files using the Comparator generic classes and Collections.sort. We decided to use the ArrayList
+  data structure, as it is dynamic and satisfies our needs - that is that we do not know initially the array size.
+   An ArrayList is quick for the adding operation, and removing is irrelevant in this context so its long O(n)
+   for removing does not affect us.
 
 Except Exception of java that we use,there are two Types of exceptions:Type 1 and type 2.
 Type 1 exception is thrown by filter and order factory. There is just Bad parameters exception.

@@ -10,8 +10,8 @@ public class FilterFactory {
 	 * this function creates one of existing filters,according to string that was inserted.
 	 * @param filterString-string contains parameters of filter
 	 * @return filter that appropriate for requirements.
-	 * @throws TypeOneException-exception that thrown in case of Bad parameters.
-	 * @throws ClassCastException-exceptionof java,that thrown when wrong casting was made.
+	 * @throws TypeOneException exception that thrown in case of Bad parameters.
+	 * @throws ClassCastException eexceptionof java,that thrown when wrong casting was made.
 	 */
 	public static Filter createFilter(String[] filterString) throws TypeOneException, ClassCastException {
 		Filter filter;
@@ -130,7 +130,7 @@ public class FilterFactory {
 	 * this method return filter "BetweenFilter" according to inserted parameters.
 	 * @param filterString string that contains filter parameters.
 	 * @return filter "BetweenThan"
-	 * @throws BadParametersException-exception that thrown in case of invalid parameters.
+	 * @throws BadParametersException exception that thrown in case of invalid parameters.
 	 */
 	private static Filter betweenFilter(String[] filterString)throws BadParametersException{
 		if (! checkNumOfArguments(filterString, 2)){
@@ -164,7 +164,7 @@ public class FilterFactory {
 	 * this method return filter "IdenticalNameFilter" according to inserted parameters.
 	 * @param filterString string that contains filter parameters.
 	 * @return filter "IdenticalNameFilter"
-	 * @throws BadParametersException-exception that thrown in case of invalid parameters.
+	 * @throws BadParametersException -exception that thrown in case of invalid parameters.
 	 */
 	private static Filter fileFilter(String[] filterString)throws BadParametersException{
 		if (! checkNumOfArguments(filterString, 1)){
@@ -178,7 +178,7 @@ public class FilterFactory {
 	 * this method return filter "prefixFilter" according to inserted parameters.
 	 * @param filterString string that contains filter parameters.
 	 * @return filter "Prefixfilter"
-	 * @throws BadParametersException-exception that thrown in case of invalid parameters.
+	 * @throws BadParametersException -exception that thrown in case of invalid parameters.
 	 */
 	private static Filter prefixFilter(String[] filterString)throws BadParametersException{
 		if (! checkNumOfArguments(filterString, 1)){
