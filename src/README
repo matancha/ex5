@@ -4,74 +4,97 @@ molodoy
 ==========================
 =    File Description    =
 ==========================
+Filter.java-This class implements abstract filter
 
-BinaryTree.java - Base class implementing a Binary Search Tree. Extendable for other specific implementations
-  of different kinds of BSTs. Contains a nested class - Node, depicting a node in the tree.
-AvlTree.java - Extends the base class BinaryTree. Implements an "AVL tree" - a specific BST which is self-balancing
-  such that its height is O(logn) where n is the number of nodes in the tree
+FilterFactory.java-class that implements filter factory for creating filter of files.
 
-NoViolationException.java - Exception thrown when trying to find a violation type in a node after ascertaining
-  there is a violation, and none is found - not legal.
+BetweenFilter.java-filter that implements filter that verify that size of file is between to inserted numbers.
+
+ContainsFilter.java-class that implements filter that check if name of file is contains an inserted string.
+
+ExecutableFilter.java-class that implements filter that check that inserted file is executable
+and verify it with string that was inserted.
+
+FileFeaturesFilter.java-class that implements filter that check if some file is "...ble" according to feature.
+
+FileNameFilter.java-class that implements filter that verify some properties of name of file that is checked.
+
+GreaterThanFilter-class that implements filter that verify that size of checked file is less than upper bound.
+
+HiddenFilter.java-class that  implements filter that check that inserted file is hidden
+and verify it with string that was inserted.
+
+IdenticalNameFilter.java-class that implements filter that check
+if name of file is the same as inserted file's name.
+
+NegFilter.java-class that  implements decorator for inserted filter.
+ It will return opposite result of inserted filter.
+In other words it will return false when original filter will return true and wise versa.
+
+PrefixFilter.java-class that implements filter that verify if a filter starts with inserted prefix.
+
+SizeFilter.java-class that implements abstract filter that are connected in some way to size bounds.
+
+AllFilter.java-class that implements filter that passes each file.
+
+SmallerThanFilter.java-class that implements filter that verify
+that size of checked file is greater than lower bound.
+
+SuffixFilter.java-class that implements filter that verify if a filter ends with inserted suffix.
+
+WritableFilter.java-class that implements filter that check that inserted file is writable
+and verify it with answer that was inserted.
+
+TypeOneException.java-class  that implements exceptions that thrown by order and filter.
+When this exception is thrown function is continue to work,but there
+is a massage where warning was founded.
+
+BadParametersException.java-exception that thrown in case that parameters of order or filter are not appropriate.
+
+TypeTwoException.java-this class implements Exception that thrown in case when There is no way
+to continue filtering of files,consequently it will be stoped and
+Error will be printed according to message of the Exception.
+
+ParametersNumberException.java-class that implements exception that thrown in case of wrong number of parameters.
+For example if there were just 1 or 0 parameters inserted,or on the contrary,3 or more.
+
+ComandsFileException.java-class that implements exception that thrown in case
+that format of commands file is not appropriate.
+
 
 ================
 =    Design    =
 ================
-
-When given the mission to implement an AVL tree, we right away understood that although we were given that
-  specific mission there is a logic to separate the mission to parts. If we would just create an AVLTree class,
-  this class would be very useful except when using AVL trees. This tree is self-balancing unlike other BSTs
-  and specifically uses the height attribute.
-
-As a result, we decided that the basic functionality of a BST should be in class of its own that is easily extendable,
-  and specific AVL-related methods would be in an inheriting class AVLTree. Thus, we maintain the ability for future
-  changes.
-
-Moreover, an AVL tree has a is-a relationship with its parent BST tree and so using inheritance, as we did, is good
-  practice by OOP standards.
-
+We decided to implement main class Directory processor that is just read and send files to the parser and
+receive back subsections. Each of subsections is contain filters,order and warnings list.
+After that DirectoryProcessor for each of subsections print all warnings and files that are
+appropriate for all filters. It print it according to order of subsection.
+Parser receive commandFile and divide it to subsections according to command File. It read each string
+in command file and create send those strings to filter and order factories.
+Filter factory create filter according to inserted parameters and throw error if string was not appropriate.
+In this case default filter (all filter) is created.
+Order factory also creates order according to inserted parameters and throw exception in case of invalid parameters.
+In this case will bew created default order (abs order).
 ================================
 =    Implementation details    =
 ================================
 
-We decided to implement our Nodes without pointer to the ancestor,
-because of three  reasons:
-1)To make code more readable,because also we implemented design with
-ancestor and in delete we were not able to make code more readable because
-of big number of pointers such that:node.ancestor.rightson=node.rightson.
-2)we thought that for tree more naturally recursive implementation.
-3)When we discussed AVL trees on the DAST we marked pointers just
-in one direction:from ancestor to the sons and it make sense
-that it is natural building of AVL tree.
-We also decided to implement iterator() and constructor that receive other
-tree and create copy of that also in BiraryTree because it also actual
-for Binary tree.
 
 ==============================
 =    Answers to questions    =
 ==============================
 
-5.1
-  1. 8,10,3,2,11,5,9,12,1,4,6,7.
-5.2
-  1. What is the asymptotic running time complexity of the tree construction done in AvlTree(int[] data)?
-    O(nlogn). We iterate over each array member - O(n), and add it using the add function which in a balanced tree
-    is O(logn). Our total time complexity is: O(n*logn).
-  2. If we get an ordered array - we can add all nodes in O(n).
-         This is the best possible outcome, because we have to iterate over all array members to add them - that is
-         O(n).
-
-5.3
-  1. What is the asymptotic running time complexity of the tree construction done in AvlTree(AvlTree avlTree)?
-    O(n). Our algorithm has two parts:
-      a. Getting a number from the iterator. When initialized does O(n) actions to create an ordered array.
-      b. Adding to the tree each member is O(1), as it's only determining the reference in another node.
-      For n nodes - that is O(n).
-    When summing we get O(n) time complexity.
-  2. If we get an ordered array - we can add all nodes in O(n).
-    This is the best possible outcome, because we have to iterate over all array members to add them - that is
-    O(n).
-5.4
-  1.In our implementation asymptotic running time complexity is O(1) because
-    math operation require constant number of actions.
-  2. It is also best possible asymptotic running time complexity at least
-   because it is the lowest assymptotic running time complexity.
+Except Exception of java that we use,there are two Types of exceptions:Type 1 and type 2.
+Type 1 exception is thrown by filter and order factory. There is just Bad parameters exception.
+Firstly we implemented Type one exceptions much more modular and understandable,for example there were
+NegativeParameterException,WrongFilterNameException,WrongNumbersOrderException and some others.
+They also had messages as Type two exceptions that will be described next. But we had to change everything
+to be just BadParameters,because there is no need in messages,we had just to write Warning in line...
+Consequently we decided that those exceptions are superfluous,because there is no place except our code,
+where user will see it.
+Type 2 exception is thrown by parser or DirectoryProcessor in case that there is no way to continue filtering
+of files.There are 2 exceptions that are extends from Type 2 exception:
+BadSubsectionNameException and ParametersNumberException.
+BadSubsectionNameException is thrown in case of invalid name of subsection e.g. not "FILTER" or not "ORDER".
+ParametersNumberException is thrown in case of wrong number of parameters.
+We decided not to do system of exceptions more complicated to make it more readable.
