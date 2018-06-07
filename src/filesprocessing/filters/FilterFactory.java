@@ -161,9 +161,9 @@ public class FilterFactory {
 	}
 
 	/**
-	 * this method return filter "FileFilter" according to inserted parameters.
+	 * this method return filter "IdenticalNameFilter" according to inserted parameters.
 	 * @param filterString string that contains filter parameters.
-	 * @return filter "fileFilter"
+	 * @return filter "IdenticalNameFilter"
 	 * @throws BadParametersException-exception that thrown in case of invalid parameters.
 	 */
 	private static Filter fileFilter(String[] filterString)throws BadParametersException{
@@ -171,7 +171,7 @@ public class FilterFactory {
 			throw new BadParametersException();
 		};
 		String stringForChecking=(filterString[1]);
-		return new FileFilter(stringForChecking);
+		return new IdenticalNameFilter(stringForChecking);
 	}
 
 	/**

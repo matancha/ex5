@@ -4,7 +4,7 @@ import java.io.File;
 /**
  * this class implements filter that check if name of file is the same as inserted file's name.
  */
-public class FileFilter extends FileNameFilter {
+public class IdenticalNameFilter extends FileNameFilter {
 	/*string that will be compared with name of the file. */
 	private String value;
 
@@ -12,7 +12,7 @@ public class FileFilter extends FileNameFilter {
 	 * this method creates filter with inserted string.
 	 * @param value-string that will be searched in name of file.
 	 */
-	public FileFilter(String value) {
+	public IdenticalNameFilter(String value) {
 		this.value = value;
 	}
 
