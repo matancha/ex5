@@ -1,3 +1,4 @@
+/*
 package filesprocessing.filters;
 
 import filesprocessing.BadParametersException;
@@ -8,3 +9,4 @@ public class WrongOrderOfParameters extends BadParametersException {
 		return "Parameters were given not in the correct order";
 	}
 }
+*/

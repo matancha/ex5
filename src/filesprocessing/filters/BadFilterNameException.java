@@ -1,3 +1,4 @@
+/*
 package filesprocessing.filters;
 
 import filesprocessing.BadNameException;
@@ -8,3 +9,4 @@ public class BadFilterNameException extends BadNameException{
         return "Wrong name of the Filter";
     }
 }
+*/

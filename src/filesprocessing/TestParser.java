@@ -1,3 +1,4 @@
+/*
 package filesprocessing;
 
 import filesprocessing.filters.*;
@@ -35,3 +36,4 @@ public class TestParser {
 		Assert.assertTrue(secondFilter instanceof SmallerThanFilter);
 	}
 }
+*/

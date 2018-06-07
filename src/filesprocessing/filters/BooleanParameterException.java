@@ -1,3 +1,4 @@
+/*
 package filesprocessing.filters;
 
 import filesprocessing.BadParametersException;
@@ -8,3 +9,4 @@ public class BooleanParameterException extends BadParametersException{
         return "invalid boolean parameter,options YES or NO";
     }
 }
+*/

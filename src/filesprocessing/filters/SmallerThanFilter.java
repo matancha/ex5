@@ -1,6 +1,9 @@
 package filesprocessing.filters;
 import java.io.File;
 
+/**
+ * This
+ */
 public class SmallerThanFilter extends SizeFilter {
 	private double minSize;
 

@@ -56,6 +56,4 @@ public class DirectoryProcessor {
 		}
 	}
 	private static boolean isComandFileEmpty(File comandsPath){return  comandsPath.length()==0;}
-
-	private static boolean isFilesListEmpty(File[] files){return files.length==0;}
 }

@@ -1,3 +1,4 @@
+/*
 package filesprocessing.filters;
 import filesprocessing.BadParametersException;
 
@@ -7,3 +8,4 @@ public class NegativeSizeException extends BadParametersException {
         return "negative bound was inserted";
     }
 }
+*/
