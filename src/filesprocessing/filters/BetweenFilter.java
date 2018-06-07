@@ -2,7 +2,7 @@ package filesprocessing.filters;
 import java.io.File;
 
 /**
- * this filter implement filter that verify that size of file is between to inserted numbers.
+ * this class implements filter that verify that size of file is between to inserted numbers.
  */
 public class BetweenFilter extends SizeFilter {
 	/*minimal size bound . */

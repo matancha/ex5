@@ -3,7 +3,7 @@ import java.io.File;
 
 
 /**
- * This filter is implement filter that verify that size of checked file is less than upper bound.
+ * This class implements filter that verify that size of checked file is less than upper bound.
  */
 public class GreaterThanFilter extends SizeFilter {
 	/*maximal size bound. */

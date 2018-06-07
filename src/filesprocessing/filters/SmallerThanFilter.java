@@ -2,7 +2,7 @@ package filesprocessing.filters;
 import java.io.File;
 
 /**
- * This filter is implement filter that verify that size of checked file is greater than lower bound.
+ * This class implements filter that verify that size of checked file is greater than lower bound.
  */
 public class SmallerThanFilter extends SizeFilter {
 	/*minimal size bound. */

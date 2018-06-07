@@ -3,7 +3,7 @@ package filesprocessing.filters;
 import java.io.File;
 
 /**
- * this filter implements filter that passes each file.
+ * this class implements filter that passes each file.
  */
 public class AllFilter implements Filter{
     AllFilter(){ }

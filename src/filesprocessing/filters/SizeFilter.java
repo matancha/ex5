@@ -2,7 +2,7 @@ package filesprocessing.filters;
 import java.io.*;
 
 /**
- * This filter implements abstract filter that are connected in some way to size bounds.
+ * This class implements abstract filter that are connected in some way to size bounds.
  */
 public abstract class SizeFilter implements Filter {
 
