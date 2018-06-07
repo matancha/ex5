@@ -14,7 +14,7 @@ public class Parser {
 	/* Header of Order */
 	private static final String ORDER_HEADER = "ORDER";
 	/* The first line in a subsection */
-	private static final String SUBSECTION_BEGINNING_STRING = FILTER_HEADER;
+	private static final String SUBSECTION_BEGINNING_STRING = "FILTER";
 	/* Delimiter for separating arguments */
 	private static final String ARGS_DELIMITER = "#";
 	/* Format of warning */
@@ -38,13 +38,6 @@ public class Parser {
 			}
 			ArrayList<String> subsectionWarnings = new ArrayList<>();
 			ArrayList<Filter> filters = getFilters(fileContents, currentLine, subsectionWarnings);
-
-			currentLine = fileContents.readLine();
-			if (currentLine == null) {
-				throw new CommandsFileException();
-			} else if (!currentLine.equals(ORDER_HEADER) && !currentLine.equals(FILTER_HEADER)) {
-				throw new BadSubsectionNameException();
-			}
 
 			currentLine = fileContents.readLine();
 			Order order = getOrder(fileContents, currentLine, subsectionWarnings);
@@ -108,7 +101,8 @@ public class Parser {
 	 * @return Filter objects list
 	 */
 	private static ArrayList<Filter> getFilters(LineNumberReader fileContents, String currentLine,
-	                               ArrayList<String> subsectionWarnings) throws IOException {
+	                               ArrayList<String> subsectionWarnings) throws IOException,
+						CommandsFileException, BadSubsectionNameException {
 		ArrayList<Filter> filters = new ArrayList<Filter>();
 		while (!currentLine.equals(ORDER_HEADER)) {
 			currentLine = fileContents.readLine();
@@ -120,6 +114,13 @@ public class Parser {
 				filter = FilterFactory.getDefaultFilter();
 			}
 			filters.add(filter);
+
+			currentLine = fileContents.readLine();
+			if (currentLine == null) {
+				throw new CommandsFileException();
+			} else if (!currentLine.equals(ORDER_HEADER) && !currentLine.equals(FILTER_HEADER)) {
+				throw new BadSubsectionNameException();
+			}
 		}
 		return filters;
 	}
