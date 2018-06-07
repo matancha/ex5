@@ -1,11 +1,20 @@
 package filesprocessing.orders;
-import filesprocessing.BadParametersException;
-import filesprocessing.TypeOneException;
+import filesprocessing.*;
 
+/**
+ * Factory pattern for creating Orders
+ */
 public class OrderFactory {
-	public static Order createOrder(String[] filterString) throws TypeOneException {
+	private static final int ORDER_INDEX = 0;
+	/**
+	 * Initializes Order instances
+	 * @param orderArray List containing, order + order arguments
+	 * @return Order object
+	 * @throws TypeOneException - when illegal parameters are given or invalid order name
+	 */
+	public static Order createOrder(String[] orderArray) throws TypeOneException {
 		Order order;
-		switch (filterString[0]) {
+		switch (orderArray[ORDER_INDEX]) {
 			case "size":
 				order = new SizeOrder();
 				break;
@@ -13,18 +22,21 @@ public class OrderFactory {
 				order = new TypeOrder();
 				break;
 			case "abs":
-				order=new AbsOrder();
+				order = new AbsOrder();
 				break;
 			default:
 				throw new BadParametersException();
 		}
-
-		if (filterString[filterString.length-1].equals("REVERSE")){
-			order=new ReverseOrder(order);
+		if (orderArray[orderArray.length-1].equals("REVERSE")){
+			order = new ReverseOrder(order);
 		}
-
 		return order;
 	}
+
+	/**
+	 * Gets default order object
+	 * @return default
+	 */
 	public static Order getDefaultOrder(){
 		return new AbsOrder();
 	}
